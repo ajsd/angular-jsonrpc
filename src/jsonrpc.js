@@ -60,7 +60,7 @@ function JsonRpcProvider() {
      * @param {angular.$http.Config} config HTTP config.
      * @return {angular.$http.HttpPromise}
      */
-    jsonrpc.requestPath = function(path, method, data, config) {
+    jsonrpc.request = function(path, method, data, config) {
       if (arguments.length < 4) {
         config = data;
         data = method;
