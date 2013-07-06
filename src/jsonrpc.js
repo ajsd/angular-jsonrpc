@@ -26,7 +26,9 @@ function JsonRpcProvider() {
         'method': options.method,
         'id': id
       };
-      angular.isDefined(options.data) && (payload['params'] = options.data);
+      if (angular.isDefined(options.data)) {
+        payload['params'] = options.data;
+      }
 
       // Transformers to extract the response data.
       // TODO(arunjit): Use response interceptors when the API is stable.
@@ -35,7 +37,7 @@ function JsonRpcProvider() {
         transforms.push(t);
       });
       transforms.push(function(data) {
-        return data['id'] == id ? data['result'] || data['error'] : null;
+        return data['id'] === id ? data['result'] || data['error'] : null;
       });
 
       config = config || {};
@@ -94,7 +96,7 @@ function JsonRpcProvider() {
     function Service(name, path) {
       this.serviceName = name;
       this.path = path;
-    };
+    }
 
 
     /**

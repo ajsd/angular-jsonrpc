@@ -1,7 +1,7 @@
 {
   "name": "angular-jsonrpc",
   "version": "0.1.0",
-  "main": "src/module.js",
+  "main": "build/jsonrpc.js",
   "ignore": [
     "**/.*",
     "node_modules",
