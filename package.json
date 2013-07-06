@@ -1,0 +1,33 @@
+{
+  "name": "angular-jsonrpc",
+  "version": "0.1.0",
+  "description": "JSON-RPC for AngularJS",
+  "main": "src/module.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "karma start unittest.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajsd/angular-jsonrpc.git"
+  },
+  "keywords": [
+    "angularjs",
+    "jsonrpc",
+    "json-rpc",
+    "angular"
+  ],
+  "author": "Arunjit Singh <opensrc@ajsd.in>",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-ngmin": "0.0.3",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-karma": "~0.4.5"
+  }
+}
