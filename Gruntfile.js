@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         }
       },
       options: {
-        banner: '(function(){\n"use strict";\n',
+        banner: banner + '(function(){\n"use strict";\n',
         footer: '\n})();',
         stripBanners: true
       }
