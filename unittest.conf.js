@@ -15,8 +15,6 @@ files = [
   'src/uuid.js',
   'src/jsonrpc.js',
   'src/module.js',
-  'test/mocks/uuid_mock.js',
-  'test/mocks/module.js',
   'test/unit/**/*.js'
 ];
 
