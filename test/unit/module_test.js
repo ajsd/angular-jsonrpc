@@ -1,3 +1,5 @@
+'use strict';
+
 describe('jsonrpc module', function() {
   'use strict';
 

@@ -41,7 +41,8 @@ module.exports = function(grunt) {
       },
       options: {
         banner: '(function(){\n"use strict";\n',
-        footer: '\n})();'
+        footer: '\n})();',
+        stripBanners: true
       }
     },
     ngmin: {

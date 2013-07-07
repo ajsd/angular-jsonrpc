@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * An ID generator.
  * Based on http://stackoverflow.com/a/2117523/377392.

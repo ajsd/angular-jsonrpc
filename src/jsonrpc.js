@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Provides and configures the jsonrpc service.
  */
