@@ -43,6 +43,18 @@ module.exports = function(grunt) {
         }
       }
     },
+    'regex-replace': {
+      build: {
+        src: '<%= paths.build %>/jsonrpc.js',
+        actions: [
+          {
+            name: 'single-blankline',
+            search: /\n\n+/g,
+            replace: '\n\n'
+          }
+        ]
+      }
+    },
     ngmin: {
       build: {
         files: {
@@ -111,12 +123,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
+  grunt.loadNpmTasks('grunt-regex-replace');
 
   // Tasks
   grunt.registerTask('build', [
     'jshint',
     'clean',
     'concat',
+    'regex-replace',
     'ngmin',
     'uglify'
   ]);
