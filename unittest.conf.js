@@ -25,9 +25,15 @@ exclude = [
 ];
 
 
+// Pre-process for coverage
+preprocessors = {
+  'src/*.js': 'coverage'
+};
+
+
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['progress'];
+reporters = ['progress', 'coverage'];
 
 
 // web server port

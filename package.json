@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "karma start unittest.conf.js"
+    "test": "karma start unittest.conf.js --single-run"
   },
   "repository": {
     "type": "git",
