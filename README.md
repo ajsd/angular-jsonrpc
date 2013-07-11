@@ -1,4 +1,4 @@
-# angular-rpc
+# angular-jsonrpc
 
 JSON-RPC (v2.0) for AngularJS.
 
