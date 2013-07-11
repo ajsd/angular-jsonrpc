@@ -12,9 +12,8 @@ files = [
   JASMINE_ADAPTER,
   'components/angular/angular.js',
   'components/angular-mocks/angular-mocks.js',
-  'src/uuid.js',
+  'components/angular-uuid/uuid.js',
   'src/jsonrpc.js',
-  'src/module.js',
   'test/unit/**/*.js'
 ];
 

@@ -35,31 +35,12 @@ module.exports = function(grunt) {
       build: {
         files: {
           '<%= paths.build %>/jsonrpc.js': [
-            '<%= paths.src %>/*.js'
+            '<%= paths.src %>/jsonrpc.js'
           ]
+        },
+        options: {
+          banner: banner
         }
-      },
-      options: {
-        banner: banner + '(function(){\n"use strict";\n',
-        footer: '\n})();',
-        stripBanners: true
-      }
-    },
-    'regex-replace': {
-      build: {
-        src: '<%= paths.build %>/jsonrpc.js',
-        actions: [
-          {
-            name: 'single-strict',
-            search: /'use strict';/g,
-            replace: ''
-          },
-          {
-            name: 'single-blankline',
-            search: /\n\n+/g,
-            replace: '\n\n'
-          }
-        ]
       }
     },
     ngmin: {
@@ -87,7 +68,6 @@ module.exports = function(grunt) {
       options: {
         node: true,
         browser: true,
-        //es5: true,  // default
         esnext: true,
         bitwise: true,
         camelcase: true,
@@ -131,14 +111,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
-  grunt.loadNpmTasks('grunt-regex-replace');
 
   // Tasks
   grunt.registerTask('build', [
-    //'jshint',
+    'jshint',
     'clean',
     'concat',
-    'regex-replace',
     'ngmin',
     'uglify'
   ]);
