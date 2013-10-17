@@ -33,7 +33,8 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
 
       // Transformers to extract the response data.
       // TODO(arunjit): Use response interceptors when the API is stable.
-      var transforms = [];
+      // REMOVED (jaap): lijkt onnodig
+      /*var transforms = [];
       angular.forEach($http.defaults.transformResponse, function(t) {
         transforms.push(t);
       });
@@ -48,10 +49,17 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       } else if (angular.isFunction(configTransforms)) {
         transforms.push(configTransforms);
       }
-      config.transformResponse = transforms;
+      config.transformResponse = transforms;*/
 
       // TODO(arunjit): Use $q to resolve the result.
-      return $http.post(options.path || defaults.basePath, payload, config);
+      // ADD(jaap): return response data
+      return $http.post(options.path || defaults.basePath, payload, config)
+        .then( function(response){
+          if( response.data.hasOwnProperty('error') ){
+            throw response.data.error;
+          }
+          return response.data.result;
+        });
     }
 
 
