@@ -16,7 +16,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function () {
         if (angular.isDefined(options.data)) {
           payload.params = options.data;
         }
-        console.log(options, config, defaults);
         return $http.post(options.path || defaults.basePath, payload, config).then(function (response) {
           if (response.data.hasOwnProperty('error')) {
             throw response.data.error;
@@ -63,7 +62,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function () {
   ];
   this.setBasePath = function (path) {
     defaults.basePath = path;
-    console.log(this);
     return this;
   };
 });

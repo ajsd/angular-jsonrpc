@@ -1,6 +1,6 @@
 /**!
- * angular-jsonrpc v0.1.3 [build 2013-12-20]
- * @copyright 2013 Arunjit Singh <opensrc@ajsd.in>. All Rights Reserved.
+ * angular-jsonrpc v0.1.4 [build 2014-01-15]
+ * @copyright 2014 Arunjit Singh <opensrc@ajsd.in>. All Rights Reserved.
  * @license MIT; see LICENCE.
  * [https://github.com/ajsd/angular-jsonrpc.git]
  */
@@ -57,7 +57,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
 
       // TODO(arunjit): Use $q to resolve the result.
       // ADD(jaap): return response data
-      console.log(options, config, defaults);
       return $http.post(options.path || defaults.basePath, payload, config)
         .then( function(response){
           if( response.data.hasOwnProperty('error') ){
@@ -149,7 +148,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
   /** Set the base path for all JSON-RPC calls to |path|. */
   this.setBasePath = function(path) {
     defaults.basePath = path;
-    console.log(this);
     return this;
   };
 });

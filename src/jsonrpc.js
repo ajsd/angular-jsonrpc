@@ -53,7 +53,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
 
       // TODO(arunjit): Use $q to resolve the result.
       // ADD(jaap): return response data
-      console.log(options, config, defaults);
       return $http.post(options.path || defaults.basePath, payload, config)
         .then( function(response){
           if( response.data.hasOwnProperty('error') ){
@@ -149,7 +148,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
   /** Set the base path for all JSON-RPC calls to |path|. */
   this.setBasePath = function(path) {
     defaults.basePath = path;
-    console.log(this);
     return this;
   };
 });
