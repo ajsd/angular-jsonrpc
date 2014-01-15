@@ -60,7 +60,7 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       return $http.post(options.path || defaults.basePath, payload, config)
         .then( function(response){
           if( response.data.hasOwnProperty('error') ){
-            $q.reject(response.data.error);
+            return $q.reject(response.data.error);
           }
           return response.data.result;
         });
