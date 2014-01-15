@@ -16,7 +16,7 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
   defaults.basePath = '/rpc';
 
   // provider.$get
-  this.$get = ['$http', 'uuid4', function($http, uuid4) {
+  this.$get = ['$http', '$q', 'uuid4', function($http, $q, uuid4) {
     /**
      * Makes a JSON-RPC request to `method` with `data`.
      *
@@ -60,7 +60,7 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       return $http.post(options.path || defaults.basePath, payload, config)
         .then( function(response){
           if( response.data.hasOwnProperty('error') ){
-            throw response.data.error;
+            $q.reject(response.data.error);
           }
           return response.data.result;
         });
