@@ -111,7 +111,10 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
      */
     Service.prototype.createMethod = function(name, config) {
       var path = this.path;
-      var method = this.serviceName + '.' + name;
+      var method = name;
+      if (this.serviceName) {
+         method = this.serviceName + '.' + method;
+      }
       return function(data) {
         return jsonrpc.request(path, method, data, config);
       };
