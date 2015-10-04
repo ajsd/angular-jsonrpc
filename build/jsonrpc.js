@@ -1,6 +1,6 @@
 /**!
- * angular-jsonrpc v0.1.4 [build 2014-01-15]
- * @copyright 2014 Arunjit Singh <opensrc@ajsd.in>. All Rights Reserved.
+ * angular-jsonrpc v0.1.4 [build 2015-10-04]
+ * @copyright 2015 Arunjit Singh <opensrc@ajsd.in>. All Rights Reserved.
  * @license MIT; see LICENCE.
  * [https://github.com/ajsd/angular-jsonrpc.git]
  */
@@ -38,7 +38,8 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       // Transformers to extract the response data.
       // TODO(arunjit): Use response interceptors when the API is stable.
       // REMOVED (jaap): lijkt onnodig
-      /*var transforms = [];
+      /*
+      var transforms = [];
       angular.forEach($http.defaults.transformResponse, function(t) {
         transforms.push(t);
       });
@@ -53,7 +54,8 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       } else if (angular.isFunction(configTransforms)) {
         transforms.push(configTransforms);
       }
-      config.transformResponse = transforms;*/
+      config.transformResponse = transforms;
+      */
 
       // TODO(arunjit): Use $q to resolve the result.
       // ADD(jaap): return response data
@@ -120,7 +122,10 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
      */
     Service.prototype.createMethod = function(name, config) {
       var path = this.path;
-      var method = this.serviceName + '.' + name;
+      var method = name;
+      if (this.serviceName) {
+        method = this.serviceName + '.' + method;
+      }
       return function(data) {
         return jsonrpc.request(path, method, data, config);
       };
