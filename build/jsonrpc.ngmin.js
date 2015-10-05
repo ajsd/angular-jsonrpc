@@ -1,40 +1,44 @@
+/**!
+ * angular-jsonrpc v0.1.4 [build 2015-10-04]
+ * @copyright 2015 Arunjit Singh <opensrc@ajsd.in>. All Rights Reserved.
+ * @license MIT; see LICENCE.
+ * [https://github.com/ajsd/angular-jsonrpc.git]
+ */
 'use strict';
-
 /**
  * Provides and configures the jsonrpc service.
  */
-angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
+angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function () {
   var defaults = this.defaults = {};
-
-
   // defaults
   defaults.basePath = '/rpc';
-
-
   // provider.$get
-  this.$get = ['$http', '$q', 'uuid4', function($http, $q, uuid4) {
-    /**
+  this.$get = [
+    '$http',
+    '$q',
+    'uuid4',
+    function ($http, $q, uuid4) {
+      /**
      * Makes a JSON-RPC request to `method` with `data`.
      *
      * @param {{path:string=, method:string, data:*)}} options Call options.
      * @param {angular.$http.Config} config HTTP config.
      * @return {angular.$http.HttpPromise}
      */
-    function jsonrpc(options, config) {
-      var id = uuid4.generate();
-      var payload = {
-        jsonrpc: '2.0',
-        method: options.method,
-        id: id
-      };
-      if (angular.isDefined(options.data)) {
-        payload.params = options.data;
-      }
-
-      // Transformers to extract the response data.
-      // TODO(arunjit): Use response interceptors when the API is stable.
-      // REMOVED (jaap): lijkt onnodig
-      /*
+      function jsonrpc(options, config) {
+        var id = uuid4.generate();
+        var payload = {
+            jsonrpc: '2.0',
+            method: options.method,
+            id: id
+          };
+        if (angular.isDefined(options.data)) {
+          payload.params = options.data;
+        }
+        // Transformers to extract the response data.
+        // TODO(arunjit): Use response interceptors when the API is stable.
+        // REMOVED (jaap): lijkt onnodig
+        /*
       var transforms = [];
       angular.forEach($http.defaults.transformResponse, function(t) {
         transforms.push(t);
@@ -52,20 +56,16 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       }
       config.transformResponse = transforms;
       */
-
-      // TODO(arunjit): Use $q to resolve the result.
-      // ADD(jaap): return response data
-      return $http.post(options.path || defaults.basePath, payload, config)
-        .then( function(response){
-          if( response.data.hasOwnProperty('error') ){
+        // TODO(arunjit): Use $q to resolve the result.
+        // ADD(jaap): return response data
+        return $http.post(options.path || defaults.basePath, payload, config).then(function (response) {
+          if (response.data.hasOwnProperty('error')) {
             return $q.reject(response.data.error);
           }
           return response.data.result;
         });
-    }
-
-
-    /**
+      }
+      /**
      * Shorthand for making a request.
      *
      * @param {string} path The call path.
@@ -74,18 +74,20 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
      * @param {angular.$http.Config} config HTTP config.
      * @return {angular.$http.HttpPromise}
      */
-    jsonrpc.request = function(path, method, data, config) {
-      if (arguments.length < 4) {
-        config = data;
-        data = method;
-        method = path;
-        path = null;
-      }
-      return jsonrpc({path: path, method: method, data: data}, config);
-    };
-
-
-    /**
+      jsonrpc.request = function (path, method, data, config) {
+        if (arguments.length < 4) {
+          config = data;
+          data = method;
+          method = path;
+          path = null;
+        }
+        return jsonrpc({
+          path: path,
+          method: method,
+          data: data
+        }, config);
+      };
+      /**
      * Helper to create services.
      *
      * Usage:
@@ -105,13 +107,11 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
      * @param {string} path Optional path for this service.
      * @constructor
      */
-    function Service(name, path) {
-      this.serviceName = name;
-      this.path = path;
-    }
-
-
-    /**
+      function Service(name, path) {
+        this.serviceName = name;
+        this.path = path;
+      }
+      /**
      * Creates a new service method.
      *
      * @param {string} name Method name.
@@ -119,39 +119,34 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
      * @return {function(*):angular.$http.HttpPromise} An implementation for the
      *     service method.
      */
-    Service.prototype.createMethod = function(name, config) {
-      var path = this.path;
-      var method = name;
-      if (this.serviceName) {
-        method = this.serviceName + '.' + method;
-      }
-      return function(data) {
-        return jsonrpc.request(path, method, data, config);
+      Service.prototype.createMethod = function (name, config) {
+        var path = this.path;
+        var method = name;
+        if (this.serviceName) {
+          method = this.serviceName + '.' + method;
+        }
+        return function (data) {
+          return jsonrpc.request(path, method, data, config);
+        };
       };
-    };
-
-
-    /** Creates a new Service with the given `name` and optional `path`. */
-    jsonrpc.newService = function(name, path) {
-      return new Service(name, path);
-    };
-
-    // ADDED (jaap): set basepath after runtime
-    jsonrpc.setBasePath = function(path) {
-      defaults.basePath = path;
-      return this;
-    };
-
-    // ADDED (jaap): get basepath after runtime
-    jsonrpc.getBasePath = function() {
-      return defaults.basePath;
-    };
-
-    return jsonrpc;
-  }];
-
+      /** Creates a new Service with the given `name` and optional `path`. */
+      jsonrpc.newService = function (name, path) {
+        return new Service(name, path);
+      };
+      // ADDED (jaap): set basepath after runtime
+      jsonrpc.setBasePath = function (path) {
+        defaults.basePath = path;
+        return this;
+      };
+      // ADDED (jaap): get basepath after runtime
+      jsonrpc.getBasePath = function () {
+        return defaults.basePath;
+      };
+      return jsonrpc;
+    }
+  ];
   /** Set the base path for all JSON-RPC calls to |path|. */
-  this.setBasePath = function(path) {
+  this.setBasePath = function (path) {
     defaults.basePath = path;
     return this;
   };

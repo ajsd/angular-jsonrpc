@@ -1,3 +1,9 @@
+/**!
+ * angular-jsonrpc v0.1.4 [build 2015-10-04]
+ * @copyright 2015 Arunjit Singh <opensrc@ajsd.in>. All Rights Reserved.
+ * @license MIT; see LICENCE.
+ * [https://github.com/ajsd/angular-jsonrpc.git]
+ */
 'use strict';
 
 /**
@@ -6,10 +12,8 @@
 angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
   var defaults = this.defaults = {};
 
-
   // defaults
   defaults.basePath = '/rpc';
-
 
   // provider.$get
   this.$get = ['$http', '$q', 'uuid4', function($http, $q, uuid4) {
@@ -64,7 +68,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
         });
     }
 
-
     /**
      * Shorthand for making a request.
      *
@@ -83,7 +86,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       }
       return jsonrpc({path: path, method: method, data: data}, config);
     };
-
 
     /**
      * Helper to create services.
@@ -110,7 +112,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       this.path = path;
     }
 
-
     /**
      * Creates a new service method.
      *
@@ -129,7 +130,6 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
         return jsonrpc.request(path, method, data, config);
       };
     };
-
 
     /** Creates a new Service with the given `name` and optional `path`. */
     jsonrpc.newService = function(name, path) {
