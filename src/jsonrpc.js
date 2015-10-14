@@ -57,7 +57,9 @@ angular.module('jsonrpc', ['uuid']).provider('jsonrpc', function() {
       // ADD(jaap): return response data
       return $http.post(options.path || defaults.basePath, payload, config)
         .then( function(response){
-          if( response.data.hasOwnProperty('error') ){
+          // Only `null` is not an error. '', 0, false are valid errors.
+          if(response.data.error !== undefined &&
+             response.data.error !== null) {
             return $q.reject(response.data.error);
           }
           return response.data.result;
